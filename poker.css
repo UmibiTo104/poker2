@@ -8,8 +8,8 @@ body{
     position:fixed;
     inset:0;
     margin:auto;
-    width:clamp(300px,100%,800px);
-    border-spacing:15px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
+    width:clamp(300px,100%,540px);
+    border-spacing:5px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
 }
 
 .field td{

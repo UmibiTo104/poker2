@@ -29,7 +29,7 @@ export default class Player{
             if(!front){
                 name = "blue.png";
             }
-            this.nodes[index].setAttribute("src","images/" +name);
+            this.nodes[index].setAttribute("src","./" +name);
         });
     }
 

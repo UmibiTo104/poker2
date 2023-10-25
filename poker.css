@@ -8,7 +8,7 @@ body{
     position:fixed;
     inset:0;
     margin:auto;
-    width:clamp(300px,100%,540px);
+    width:clamp(300px,100%,640px);
     border-spacing:5px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
 }
 

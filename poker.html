@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poker</title>
+  <link rel = "stylesheet" href="poker.css">
+</head>
+
+
+<body>
+  <table class="field">
+    <tr>
+      <td class="cell">
+        <img src = "blue.png" class="card cpu selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card cpu selected" alt="">
+      </td>
+      <td class="cell" colspan="3"></td>
+      <td class="cell">
+        <img src = "blue.png" class="card stock" alt="">
+        <img src = "blue.png" class="card stock" alt="">
+        <img src = "blue.png" class="card stock" alt="">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="cell">
+        <img src = "blue.png" class="card com1 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com2 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com3 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com4 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com5 selected" alt="">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="cell" colspan="3"></td>
+      <td class="cell">
+        <img src = "blue.png" class="card you selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card you selected" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td class="cell">
+        <button class="button" id="allin" disabled>オールイン</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="bet" disabled>ベット</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="raeise" disabled>レイズ</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="call" disabled>コール</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="fold" disabled>フォールド</button>
+      </td>
+    </tr>
+
+  </table>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

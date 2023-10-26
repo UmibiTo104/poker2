@@ -1,0 +1,148 @@
+body{
+    background: url("board.png") repeat-y
+    center bottom/cover;
+}
+
+.field:nth-child(1){
+    margin: auto;
+    border-spacing:15px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
+}
+
+
+.field:nth-child(2){
+    --drop-shadow:0 10px 25px 0 rgb(0 0 0 / 50%);/*影度合*/
+    position:fixed;
+    inset:0;
+    margin:auto;
+    width:clamp(300px,100%,900px);
+    border-spacing:10px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
+}
+
+.field td{
+    position: relative;
+}
+
+.box29 {
+    background:white;
+    width:100px;
+}
+.box29 .box-title {
+    font-size: 14px;
+    background:#3a2419;
+    padding: 0.1px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+.box29 p {
+    padding: 0.1px 0.1px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.box29.cpu_chips {
+    background:white;
+    width: 120px;
+    height: 55px;
+    position: relative;
+    left:41%;
+    
+}
+
+.box29 .box-title.cpu_chips {
+    font-size: 18px;
+    background:#3a2419;
+    padding: 0.1px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.box29.cpu_chips p{
+    padding: 0.1px 0.1px;
+    margin: 0;
+    font-size: 20px;
+}
+
+.box29.your_chips {
+    background:white;
+    width: 120px;
+    height: 55px;
+    position: relative;
+    left:1%;
+    
+}
+
+.box29 .box-title.your_chips {
+    font-size: 18px;
+    background:#3a2419;
+    padding: 0.1px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.box29.your_chips p{
+    padding: 0.1px 0.1px;
+    margin: 0;
+    font-size: 20px;
+}
+
+
+.card{
+    transition:0.3s linear;
+    max-width:100%;
+    position: relative;
+    z-index: 1;/*重なり表現*/
+}
+
+
+
+.card.cpu{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.you{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.com1{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.com2{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.com3{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.com4{
+    box-shadow: var(--drop-shadow);
+}
+
+.card.com5{
+    box-shadow: var(--drop-shadow);
+}
+.button{
+    width:100%;
+    height: 3em;
+    background-color: aliceblue;
+    color: black;
+    margin-top: 50px;
+    box-shadow: var(--drop-shadow);
+}
+
+.button+.button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poker</title>
+  <link rel = "stylesheet" href="poker.css">
+</head>
+
+
+<body>
+  <table class="field">
+  <tr>
+  <td class="cell">
+  <div class="box29">
+  <div class="box-title">POT</div>
+  <p id="pot"></p></div></td>
+  <td class="cell">
+  <div class="box29">
+  <div class="box-title">your_bet</div>
+  <p id="your_bet"></p></div></td>
+  <td class="cell">
+  <div class="box29">
+  <div class="box-title">cpu_bet</div>
+  <p id="cpu_bet"></p></div>
+  </td>
+    </tr>
+  </table>
+  <table class="field">
+    <tr>
+      <td class="cell">
+        <img src = "blue.png" class="card cpu selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card cpu selected" alt="">
+      </td>
+      <td class="cell" colspan="3">
+        <div class="box29 cpu_chips">
+        <div class="box-title cpu_chips">cpu_chips</div>
+        <p id="cpu_chips"></p></div> 
+      </td>
+    </tr>
+
+    <tr>
+      <td class="cell">
+        <img src = "blue.png" class="card com1 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com2 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com3 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com4 selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card com5 selected" alt="">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="cell" colspan="3">
+        <div class="box29 your_chips">
+        <div class="box-title your_chips">your_chips</div>
+        <p id="your_chips"></p></div> 
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card you selected" alt="">
+      </td>
+      <td class="cell">
+        <img src = "blue.png" class="card you selected" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td class="cell">
+        <button class="button" id="allin" disabled>オールイン</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="bet" disabled>ベット</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="raeise" disabled>レイズ</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="call" disabled>コール</button>
+      </td>
+      <td class="cell">
+        <button class="button" id="fold" disabled>フォールド</button>
+      </td>
+    </tr>
+
+  </table>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -6,6 +6,8 @@ body{
 .field:nth-child(1){
     margin: auto;
     border-spacing:15px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
+    position:fixed;
+    top:-1%;
 }
 
 

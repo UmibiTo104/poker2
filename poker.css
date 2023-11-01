@@ -25,12 +25,10 @@ body{
 }
 .field:nth-child(2) tr:nth-child(4){
     position: relative;
-    bottom: 42px;
 }
 
 .field:nth-child(2) tr:nth-child(5){
     position: relative;
-    bottom:55px;
     
 }
 
@@ -162,5 +160,10 @@ button:disabled {
     border: 1px solid #999999;
     color: #999999;
   }
+
+.button.r{
+    position: relative;
+    bottom: 50px;
+}
 
 

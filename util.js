@@ -1,4 +1,14 @@
 export default class Util{
+
+     /**
+   * 指定した時間だけ待つ（未指定の場合は１秒）
+   */
+  static sleep = (wait = 1000) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(), wait);
+    });
+  };
+  
     /*イベントハンドラを追加する*/
     static addEventListener=(selector,event,handler)=>{
         document.querySelectorAll(selector).forEach((e)=>e.addEventListener(event,handler));

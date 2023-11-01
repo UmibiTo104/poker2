@@ -25,12 +25,12 @@ body{
 }
 .field:nth-child(2) tr:nth-child(4){
     position: relative;
-    padding-bottom: 40px;
+    bottom: 42px;
 }
 
 .field:nth-child(2) tr:nth-child(5){
     position: relative;
-    padding-bottom:50px;
+    bottom:55px;
     
 }
 

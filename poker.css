@@ -14,7 +14,7 @@ body{
 .field:nth-child(2){
     --drop-shadow:0 10px 25px 0 rgb(0 0 0 / 50%);/*影度合*/
     position:fixed;
-    top:50px;
+    top:20px;
     inset:0;
     margin-top:auto;
     width:clamp(300px,100%,900px);

@@ -29,8 +29,9 @@ body{
 }
 
 .field:nth-child(2) tr:nth-child(5){
-    position: relative;
-    padding-bottom: 50px;
+    position: fixed;
+    width:300px;
+    bottom: 50px;
     
 }
 

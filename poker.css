@@ -25,13 +25,13 @@ body{
 }
 .field:nth-child(2) tr:nth-child(4){
     position: relative;
-    margin-bottom: 40px;
+    bottom: 40px;
 }
 
 .field:nth-child(2) tr:nth-child(5){
     position: relative;
-   margin-bottom: 50px;
-    margin: auto;
+    bottom: 50px;
+    
 }
 
 .box29 {

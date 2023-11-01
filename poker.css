@@ -30,7 +30,6 @@ body{
 
 .field:nth-child(2) tr:nth-child(5){
     position: relative;
-    margin:auto;
     bottom: 50px;
     margin: auto;
 }

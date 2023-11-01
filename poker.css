@@ -17,7 +17,7 @@ body{
     inset:0;
     margin-top:50px;
     width:clamp(300px,100%,900px);
-    border-spacing:10px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
+    border-spacing:5px;/*表組み内のボーダーの隣り合うセルの境界線の間隔を指定*/
 }
 
 .field td{

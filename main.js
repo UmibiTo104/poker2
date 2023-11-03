@@ -153,6 +153,7 @@ export default class Game{
        alert("第"+this.#rounds+"ラウンド開始！\nあなたのターンです。ベットしてください。\n最低ベット額は50チップです。");
        document.querySelector("#allin").setAttribute("disabled", true);
        document.querySelector("#call").setAttribute("disabled", true);
+
       
       }
        
@@ -266,8 +267,123 @@ export default class Game{
         let raised_chip = this.#your_bet - this.#cpu_bet;
         let community_cards_length = this.#community_cards.length;
         let desired_bet = Cpu.simulate_holdem(this.#cpu.cards, this.#community_cards, community_cards_length, this.#your_bet, raised_chip, this.#pot);
+        if(this.#your_bet <= this.#cpu_bet && this.#cpu_chips > 0){
+          alert("ショーハンドを行います。");
+          await Util.sleep();
+          this.#flop = true;
+          this.#turn = true;
+          this.#river = true;
+          this.#not_fold = true;
+          this.#updateView();
+          await Util.sleep();
+          let youResult = Strength.hand_best(this.#player_hand);
+          let comResult = Strength.hand_best(this.#cpu_hand);
+          youResult = Pair.judge(youResult);
+          comResult = Pair.judge(comResult);
+          console.log(youResult);
+          console.log(comResult);
+          let message = `(YOU)${youResult.hand}vs(COM)${comResult.hand}\n(YOU)${youResult.rank}vs(COM)${comResult.rank}\n`;
+          // 勝者の判定
+         if (youResult.strength < comResult.strength) {
+         // 相手（Com）の勝ち
+         message += "cpuは"+this.#pot+"チップ手に入れました。\n あなたの持ちチップは0になりました。あなたの負けです";
+         alert(message);
+         this.#cpu_chips += this.#pot;
+         this.#pot = 0;
+         this.#cpu_bet = 0;
+         this.#your_bet = 0;
+         document.getElementById("pot").textContent = this.#pot;
+         document.getElementById("your_bet").textContent = this.#your_bet;
+         document.getElementById("your_chips").textContent = this.#your_chips;
+         document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+         document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+         this.#updateView();
+        this.#not_game_over = false;
+        this.#isRunning = false;
+        this.#updateView();
+        } else if (youResult.strength > comResult.strength) {
+         // プレイヤーの勝ち
+         message += "あなたは"+this.#pot+"チップ手に入れました。\n 次のラウンドに進みます。";
+         alert(message);
+         this.#your_chips += this.#pot;
+         this.#pot = 0;
+         this.#cpu_bet = 0;
+         this.#your_bet = 0;
+         document.getElementById("pot").textContent = this.#pot;
+         document.getElementById("your_bet").textContent = this.#your_bet;
+         document.getElementById("your_chips").textContent = this.#your_chips;
+         document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+         document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+         this.#updateView();
+        this.#not_game_over = false;
+        this.#rounds += 1;
+        // 1秒待つ
+       await Util.sleep();
+       this.#initialize();
         
-         if(this.#cpu_chips === 0){
+       } else {
+        // 役が同じなのでランクで比較する
+       if (youResult.rank < comResult.rank) {
+        // 相手（Com）の勝ち
+        message += "cpuは"+this.#pot+"チップ手に入れました。\n あなたの持ちチップは0になりました。あなたの負けです";
+        alert(message);
+        this.#cpu_chips += this.#pot;
+        this.#pot = 0;
+        this.#cpu_bet = 0;
+        this.#your_bet = 0;
+        document.getElementById("pot").textContent = this.#pot;
+        document.getElementById("your_bet").textContent = this.#your_bet;
+        document.getElementById("your_chips").textContent = this.#your_chips;
+        document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+        document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+        this.#updateView();
+       this.#not_game_over = false;
+       this.#isRunning = false;
+       this.#updateView();
+      } else if (youResult.rank > comResult.rank) {
+        // プレイヤーの勝ち
+        message += "あなたは"+this.#pot+"チップ手に入れました。\n 次のラウンドに進みます。";
+        alert(message);
+        this.#your_chips += this.#pot;
+         this.#pot = 0;
+         this.#cpu_bet = 0;
+         this.#your_bet = 0;
+         document.getElementById("pot").textContent = this.#pot;
+         document.getElementById("your_bet").textContent = this.#your_bet;
+         document.getElementById("your_chips").textContent = this.#your_chips;
+         document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+         document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+         this.#updateView();
+        this.#not_game_over = false;
+        this.#rounds += 1;
+        // 1秒待つ
+       await Util.sleep();
+       this.#initialize();
+      } else {
+        // 引き分け
+        message += "引き分けです。\n あなたとcpuは"+Math.trunc(this.#pot / 2)+"チップ手に入れました。\n 次のラウンドに進みます。";
+        alert(message);
+        this.#your_chips += Math.trunc(this.#pot / 2);
+        this.#cpu_chips += Math.trunc(this.#pot / 2);
+        this.#pot = 0;
+        this.#cpu_bet = 0;
+        this.#your_bet = 0;
+        this.#cpu_current_bet = 0;
+        this.#your_current_bet = 0;
+        document.getElementById("pot").textContent = this.#pot;
+        document.getElementById("your_bet").textContent = this.#your_bet;
+        document.getElementById("your_chips").textContent = this.#your_chips;
+        document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+        document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+        this.#updateView();
+        this.#rounds += 1;
+        // 1秒待つ
+       await Util.sleep();
+       this.#initialize();
+      }
+        }
+      }
+         else if(this.#cpu_chips === 0){
           alert("ショーハンドを行います。");
           await Util.sleep();
           this.#flop = true;
@@ -898,7 +1014,7 @@ this.#initialize();
           await Util.sleep();
           this.#initialize(); 
         }
-        else if(desired_bet >= raised_chip && desired_bet < this.#your_bet){
+        else if(desired_bet >= raised_chip && desired_bet < this.#your_bet && desired_bet < this.#cpu_chips){
           this.#cpu_current_bet += this.#your_bet - this.#cpu_bet;
           this.#pot += this.#cpu_current_bet;
           this.#cpu_bet += this.#cpu_current_bet;
@@ -1444,7 +1560,7 @@ this.#initialize();
       if(desired_bet < raised_chip){
         this.#not_game_over = false;
         await Util.sleep();
-        alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
+        alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
         this.#your_chips += this.#pot;
         this.#pot = 0;
         this.#cpu_current_bet = 0;
@@ -1476,7 +1592,7 @@ this.#initialize();
         await Util.sleep();
         alert("cpuはオールインしました。\n あなたのターンです。");
       }else if (desired_bet > this.#your_bet && desired_bet < this.#cpu_chips){
-        this.#cpu_current_bet += desired_bet;
+        this.#cpu_current_bet = desired_bet;
         this.#pot += this.#cpu_current_bet;
         this.#cpu_chips -=  this.#cpu_current_bet;
         this.#cpu_bet += this.#cpu_current_bet;
@@ -1505,7 +1621,7 @@ this.#initialize();
       if(desired_bet < raised_chip){
         this.#not_game_over = false;
         await Util.sleep();
-        alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショウハンドは行われませんでした。")
+        alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショウハンドは行われませんでした。")
         this.#your_chips += this.#pot;
         this.#pot = 0;
         this.#cpu_current_bet = 0;
@@ -1562,7 +1678,7 @@ this.#initialize();
       if(desired_bet < raised_chip){
         this.#not_game_over = false;
         await Util.sleep();
-        alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショウハンドは行われませんでした。")
+        alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショウハンドは行われませんでした。")
         this.#your_chips += this.#pot;
         this.#pot = 0;
         this.#cpu_current_bet = 0;
@@ -1747,7 +1863,7 @@ alert("【リバー】に進みます。");
 if(desired_bet < raised_chip){
   this.#not_game_over = false;
   await Util.sleep();
-  alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
+  alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
   this.#your_chips += this.#pot;
   this.#pot = 0;
   this.#cpu_current_bet = 0;
@@ -1808,7 +1924,7 @@ alert("【ターン】に進みます。");
 if(desired_bet < raised_chip){
   this.#not_game_over = false;
   await Util.sleep();
-  alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
+  alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
   this.#your_chips += this.#pot;
   this.#pot = 0;
   this.#cpu_current_bet = 0;
@@ -1863,7 +1979,7 @@ if(desired_bet < raised_chip){
       if(desired_bet < raised_chip){
         this.#not_game_over = false;
         await Util.sleep();
-        alert("cpuはフォールドしました。あなたの勝利！\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
+        alert("cpuはフォールドしました。\n あなたは"+this.#pot+"チップを手に入れました。\nショーハンドは行われませんでした。")
         this.#your_chips += this.#pot;
         this.#pot = 0;
         this.#cpu_current_bet = 0;

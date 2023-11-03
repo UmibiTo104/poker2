@@ -152,6 +152,7 @@ export default class Game{
        }else{
        alert("第"+this.#rounds+"ラウンド開始！\nあなたのターンです。ベットしてください。\n最低ベット額は50チップです。");
        document.querySelector("#allin").setAttribute("disabled", true);
+       document.querySelector("#call").setAttribute("disabled", true);
       
       }
        
@@ -2050,7 +2051,7 @@ if(desired_bet < raised_chip){
   //フォールドボタンのクリックイベントハンドラ
   async #onfold(event){
     this.#not_game_over = false;
-    alert("あなたはフォールドしました。cpuの勝利！\ncpuは"+this.#pot+"チップを手に入れました。")
+    alert("あなたはフォールドしました。\ncpuは"+this.#pot+"チップを手に入れました。次のラウンドに進みます。")
     this.#cpu_chips += this.#pot;
     this.#pot = 0;
     this.#cpu_current_bet = 0;

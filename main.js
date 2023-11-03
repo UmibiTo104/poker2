@@ -799,7 +799,129 @@ export default class Game{
 
         let raised_chip = this.#your_bet - this.#cpu_bet;
         let desired_bet = Cpu.simulate_holdem(this.#cpu.cards, this.#community_cards, 0, this.#your_bet, raised_chip, this.#pot);
-        if(bet_amount >= this.#cpu_chips){
+        if(this.#your_chips === 0 && this.#cpu_bet ===0 && this.#cpu_chips > bet_amount){
+          this.#pot += bet_amount;
+          this.#cpu_current_bet += bet_amount;
+          this.#cpu_bet += bet_amount;
+          this.#cpu_chips -= bet_amount;
+          document.getElementById("pot").textContent = this.#pot;
+          document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+          document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+          this.#updateView();
+          alert("cpuはコールしました。\n ショーハンドを行います。");
+          this.#flop = true;
+this.#turn = true;
+this.#river = true;
+this.#not_fold = true;
+this.#updateView();
+await Util.sleep();
+let youResult = Strength.hand_best(this.#player_hand);
+let comResult = Strength.hand_best(this.#cpu_hand);
+youResult = Pair.judge(youResult);
+comResult = Pair.judge(comResult);
+console.log(youResult);
+console.log(comResult);
+let message = `(YOU)${youResult.hand}vs(COM)${comResult.hand}\n(YOU)${youResult.rank}vs(COM)${comResult.rank}\n`;
+// 勝者の判定
+if (youResult.strength < comResult.strength) {
+// 相手（Com）の勝ち
+message += "cpuは"+this.#pot+"チップ手に入れました。\n あなたの持ちチップは0になりました。あなたの負けです";
+alert(message);
+this.#cpu_chips += this.#pot;
+this.#pot = 0;
+this.#cpu_bet = 0;
+this.#your_bet = 0;
+document.getElementById("pot").textContent = this.#pot;
+document.getElementById("your_bet").textContent = this.#your_bet;
+document.getElementById("your_chips").textContent = this.#your_chips;
+document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+this.#updateView();
+this.#not_game_over = false;
+this.#isRunning = false;
+this.#updateView();
+} else if (youResult.strength > comResult.strength) {
+// プレイヤーの勝ち
+message += "あなたは"+this.#pot+"チップ手に入れました。\n 次のラウンドに進みます。";
+alert(message);
+this.#your_chips += this.#pot;
+this.#pot = 0;
+this.#cpu_bet = 0;
+this.#your_bet = 0;
+document.getElementById("pot").textContent = this.#pot;
+document.getElementById("your_bet").textContent = this.#your_bet;
+document.getElementById("your_chips").textContent = this.#your_chips;
+document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+this.#updateView();
+this.#not_game_over = false;
+this.#rounds += 1;
+// 1秒待つ
+await Util.sleep();
+this.#initialize();
+} else {
+// 役が同じなのでランクで比較する
+if (youResult.rank < comResult.rank) {
+// 相手（Com）の勝ち
+message += "cpuは"+this.#pot+"チップ手に入れました。\n あなたの持ちチップは0になりました。あなたの負けです";
+alert(message);
+this.#cpu_chips += this.#pot;
+this.#pot = 0;
+this.#cpu_bet = 0;
+this.#your_bet = 0;
+document.getElementById("pot").textContent = this.#pot;
+document.getElementById("your_bet").textContent = this.#your_bet;
+document.getElementById("your_chips").textContent = this.#your_chips;
+document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+this.#updateView();
+this.#not_game_over = false;
+this.#isRunning = false;
+this.#updateView();
+} else if (youResult.rank > comResult.rank) {
+// プレイヤーの勝ち
+message += "あなたは"+this.#pot+"チップ手に入れました。\n 次のラウンドに進みます。";
+alert(message);
+this.#your_chips += this.#pot;
+this.#pot = 0;
+this.#cpu_bet = 0;
+this.#your_bet = 0;
+document.getElementById("pot").textContent = this.#pot;
+document.getElementById("your_bet").textContent = this.#your_bet;
+document.getElementById("your_chips").textContent = this.#your_chips;
+document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+this.#updateView();
+this.#not_game_over = false;
+this.#rounds += 1;
+// 1秒待つ
+await Util.sleep();
+this.#initialize();
+} else {
+// 引き分け
+message += "引き分けです。\n あなたとcpuは"+Math.trunc(this.#pot / 2)+"チップ手に入れました。\n 次のラウンドに進みます。";
+alert(message);
+this.#your_chips += Math.trunc(this.#pot / 2);
+this.#cpu_chips += Math.trunc(this.#pot / 2);
+this.#pot = 0;
+this.#cpu_bet = 0;
+this.#your_bet = 0;
+this.#cpu_current_bet = 0;
+this.#your_current_bet = 0;
+document.getElementById("pot").textContent = this.#pot;
+document.getElementById("your_bet").textContent = this.#your_bet;
+document.getElementById("your_chips").textContent = this.#your_chips;
+document.getElementById("cpu_bet").textContent = this.#cpu_bet;
+document.getElementById("cpu_chips").textContent = this.#cpu_chips;
+this.#updateView();
+this.#rounds += 1;
+// 1秒待つ
+await Util.sleep();
+this.#initialize();
+}
+}
+        }
+        else if(bet_amount >= this.#cpu_chips){
           this.#pot += this.#cpu_chips;
           this.#cpu_current_bet += this.#cpu_chips;
           this.#cpu_bet += this.#cpu_chips;

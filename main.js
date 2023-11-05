@@ -214,7 +214,7 @@ export default class Game{
         document.querySelector("#check").setAttribute("disabled", true);
         }
      
-      if(this.#your_chips > this.#cpu_bet){
+      if(this.#your_chips+this.#your_bet > this.#cpu_bet){
            document.querySelector("#raise_bet").removeAttribute("disabled");
       }else{
         document.querySelector("#raise_bet").setAttribute("disabled", true);
